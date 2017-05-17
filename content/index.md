@@ -2,7 +2,7 @@
 title: webpack
 ---
 
-## Write your code
+## 示例代码
 
 <div class="homepage__wrap">
 <div class="homepage__left">
@@ -29,7 +29,7 @@ export default function bar() {
 </div>
 
 
-## Bundle with webpack
+## webpack打包代码
 
 <div class="homepage__wrap">
 <div class="homepage__left">
@@ -61,11 +61,11 @@ module.exports = {
 </html>
 ```
 
-Then run `webpack` on the command-line to create `bundle.js`.
+执行 `webpack` 命令将会自动生成 `bundle.js` 文件
 
 </div>
 </div>
 
 ## It's that simple
 
-## [Get Started](/guides/get-started)
+## [开始使用](/guides/get-started)
