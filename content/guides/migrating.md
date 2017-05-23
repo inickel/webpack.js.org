@@ -1,5 +1,5 @@
 ---
-title: Migrating from v1 to v2
+title: 升级 v1.x 至 v2.x
 sort: 20
 contributors:
   - sokra

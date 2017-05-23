@@ -1,5 +1,5 @@
 ---
-title: Comparison with other bundlers
+title: 同类比较
 contributors:
   - pksjce
   - bebraw

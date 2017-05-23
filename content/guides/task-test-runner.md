@@ -1,11 +1,12 @@
 ---
-title: Integration with task/test runners
+title: 集成任务和测试
 contributors:
   - pksjce
   - bebraw
   - tashian
 ---
 
+Integration with task/test runners
 webpack is a module bundler, like Browserify or Brunch. It is not a task runner. Make, Grunt, or Gulp are task runners. But people get confused about the difference, so let's clear that up right away.
 
 Task runners handle automation of common development tasks such as linting, building, or testing your project. Compared to bundlers, task runners have a higher level focus.

@@ -1,5 +1,5 @@
 ---
-title: Loaders
+title: 加载器
 sort: 4
 contributors:
   - manekinekko

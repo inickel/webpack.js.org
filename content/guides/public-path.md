@@ -1,5 +1,5 @@
 ---
-title: Public Path
+title: 发布路径
 contributors:
   - rafaelrinaldi
   - chrisVillanueva

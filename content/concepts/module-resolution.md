@@ -1,10 +1,14 @@
 ---
-title: Module Resolution
+title: 模块解析
 sort: 8
 contributors:
     - pksjce
     - pastelsky
 ---
+
+模块解析器， 是一个用来定位一个模块的绝对路径的类库。
+
+如下声明模块与模块之间的依赖关系：
 
 A resolver is a library which helps in locating a module by its absolute path.
 A module can be required as a dependency from another module as:
@@ -20,12 +24,15 @@ webpack find the module code that needs to be included in the bundle for every s
 webpack uses [enhanced-resolve](https://github.com/webpack/enhanced-resolve) to resolve file paths while bundling modules.
 
 
-## Resolving rules in webpack
+## 解析规则
+Resolving rules in webpack
+
+webpack 通过使用 `enhanced-resolve` 来解析以下三种引用文件的路径。
 
 Using `enhanced-resolve`, webpack can resolve three kinds of file paths:
 
 
-### Absolute paths
+### 绝对路径
 
 ```js
 import "/home/me/file";
@@ -34,9 +41,9 @@ import "C:\\Users\\me\\file";
 ```
 
 Since we already have the absolute path to the file, no further resolution is required.
+绝对路径的声明方式比较直观
 
-
-### Relative paths
+### 相对路径
 
 ```js
 import "../src/file1";
@@ -46,7 +53,7 @@ import "./file2";
 In this case, the directory of the resource file where the `import` or `require` occurs is taken to be the context directory. The relative path specified in the `import/require` is joined to this context path to produce the absolute path to the module.
 
 
-### Module paths
+### 模块路径
 
 ```js
 import "module";
@@ -63,19 +70,21 @@ Once the path is resolved based on the above rule, the resolver checks to see if
 
 If the path points to a folder, then the following steps are taken to find the right file with the right extension:
 
-* If the folder contains a `package.json` file, then fields specified in [`resolve.mainFields`](/configuration/resolve/#resolve-mainfields) configuration option are looked up in order, and the first such field in `package.json` determines the file path. 
+* If the folder contains a `package.json` file, then fields specified in [`resolve.mainFields`](/configuration/resolve/#resolve-mainfields) configuration option are looked up in order, and the first such field in `package.json` determines the file path.
 * If there is no `package.json` or if the main fields do not return a valid path, file names specified in the [`resolve.mainFiles`](/configuration/resolve/#resolve-mainfiles) configuration option are looked for in order, to see if a matching filename exists in the imported/required directory .
 * The file extension is then resolved in a similar way using the `resolve.extensions` option.
 
 webpack provides reasonable [defaults](/configuration/resolve) for these options depending on your build target.
 
 
-## Resolving Loaders
+## 解析加载器器
+
+Resolving Loaders
 
 This follows the same rules as those specified for file resolution. But the [`resolveLoader`](/configuration/resolve/#resolveloader) configuration option can be used to have separate resolution rules for loaders.
 
 
-## Caching
+## 缓存
 
 Every filesystem access is cached, so that multiple parallel or serial requests to the same file occur faster. In [watch mode](/configuration/watch/#watch), only modified files are evicted from the cache. If watch mode is off, then the cache gets purged before every compilation.
 

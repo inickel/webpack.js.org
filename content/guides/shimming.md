@@ -1,5 +1,5 @@
 ---
-title: Shimming
+title: 别名管理
 sort: 61
 contributors:
   - pksjce

@@ -1,5 +1,5 @@
 ---
-title: Dependency Management
+title: 依赖管理
 sort: 60
 contributors:
   - ndelangen

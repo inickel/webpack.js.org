@@ -1,5 +1,5 @@
 ---
-title: Hot Module Replacement - React
+title: 模块热替换(HMR) - React
 contributors:
   - jmreidy
   - jhnns
@@ -10,23 +10,21 @@ contributors:
   - drpicox
 ---
 
-W> The __Hot Module Replacement__ functionality is not intended for use in production. You should only use it in your development configuration/environment, please see the [building for production guide](/guides/production-build) for more information.
+W> __模块热替换__ 并非在生产环境中所使用的技术方案。 此方案的配置或环境都必须是用于开发过程中的。如果你现在需要知道如何在生产环境打包，请查阅[生产环境打包](/guides/production-build)的相关信息。
 
-As explained in detail on the [concept page](/concepts/hot-module-replacement), Hot Module Replacement (HMR) exchanges, adds, or removes modules while an application is running, without a page reload.
-HMR is particularly useful in applications using a single state tree
-since components are "dumb" and will reflect the latest application state, even
-after their source is changed and they are replaced.
+正如在[概念章节](/concepts/hot-module-replacement) 提到的，__模块热替换(HMR)__ 的作用是，在应用运行时，无手动需刷新页面，便能替换、增加、删除必要的模块。
+
+__HMR__ 对于那些由单一状态树构成的应用非常有用。因为这些应用的组件是 "dumb" (相对于 "smart") 的，所以在组件的代码更改后，组件的状态依然能够正确反映应用的最新状态。
+
+以下方案采用 `Babel` 和 `React` 举例, 但 __HMR__ 可以使用其他工具以各种其他方式实现。
 
 The approach described below specifically uses Babel and React, but HMR can be done in a variety of other ways, using other tools.
 
-T> If you'd like to see examples of other approaches please request them, or better yet [open up a PR with an addition](https://github.com/webpack/webpack.js.org).
+T>  如果想查看其他配置方式的示例，可以告诉我们， 或者[提一个PR](https://github.com/webpack/webpack.js.org).
 
+## 项目配置
 
-## Project Config
-
-This guide will be demonstrating HMR using Babel on a React app, and CSS Modules.
-
-First, install the following dev dependencies:
+首先，安装好将会使用的依赖包:
 
 ```bash
 npm install --save-dev webpack webpack-dev-server
@@ -34,59 +32,76 @@ npm install --save-dev babel-core babel-loader babel-preset-es2015 babel-preset-
 npm install --save-dev style-loader css-loader
 ```
 
-In addition you'll need to install React, ReactDOM and `react-hot-loader` (make sure to use the `next` release of this package)
+接下来需要安装React, ReactDOM, react-hot-loader (请使用@next版本)
+
+W> 并未解释为何要使用@next版本
 
 ```bash
 npm install --save react react-dom react-hot-loader@next
 ```
 
+### Babel 配置
 
-### Babel Config
-
-Create a `.babelrc` with the following options:
+在项目根目录创建一个`.babelrc`文件，其内容配置信息如下：
 
 __.babelrc__
 
 ```json
 {
   "presets": [
-    ["es2015", {"modules": false}],
-    // webpack understands the native import syntax, and uses it for tree shaking
-
+    ["es2015", { "modules" : false }],
+    // webpack 内置可以识别 import 的语法，并为其使用 tree shaking
     "react"
-    // Transpile React components to JavaScript
+    // 将 React Components 转译为 JavaScript
   ],
   "plugins": [
     "react-hot-loader/babel"
-    // Enables React code to work with HMR.
+    // 开起React代码中的HRM.
   ]
 }
 ```
 
-We need to use ES2015 modules to make HMR work properly. To do this, set the `module` option to false in our es2015 preset. We can do something similar using `babel-preset-env`:
+W> 参见 [tree shaking](https://www.zhihu.com/question/41922432)，译者认为，tree-shaking 可以从字面意思去理解，“摇晃树，使无用的叶子掉落”，也就过滤掉无用代码的一个具体实现。
+
+我们需要使用 ES2015 模块来使 HMR 正常工作。 为此，在我们的 es2015 preset 设置中，将 `module` 的值设置为 false。我们可以使用 `babel-preset-env` 做类似的事情：
 
 ```json
 ["env", {"modules": false}]
 ```
 
+将 Babel 的模块插件设置为 false，可以绕过很多问题（查看从 [v1 迁移到 v2](/guides/migrating/#mixing-es2015-with-amd-and-commonjs)和 [webpack-tree-shaking](http://www.2ality.com/2015/12/webpack-tree-shaking.html)）
+
+W> 这段解释过于模糊
+
 Setting Babel's module plugin to false helps fix many issues (see [Migrating from v1 to v2](/guides/migrating/#mixing-es2015-with-amd-and-commonjs) and [webpack-tree-shaking](http://www.2ality.com/2015/12/webpack-tree-shaking.html)).
 
-Note: Node.js doesn't support ES2015 modules yet and using ES2015 modules in your webpack 2 configuration file will cause an [issue](https://github.com/webpack/webpack.js.org/issues/154).
 
-To work around this you will need two `.babelrc` files to transpile the configuration and app code separately:
-
-1. in the project root directory with `"presets": ["es2015"]`
-2. in the source directory for app code
+注意：Node.js 还不支持 ES2015 模块，并且在webpack2 的配置文件中使用 ES2015 模块将造成 [问题](https://github.com/webpack/webpack.js.org/issues/154)。
 
 
-### webpack configuration
+W> 在现有的lts版本中，nodejs支持大部分的ES2015的语法，但不能使用 `import` `export` 等语法，其实V8还不支持。 -- 译者注
 
-For this example, we will use a single webpack config file, with the following assumptions:
+为此，你将需要创建两个 .babelrc 文件，来分别地 编译配置 和 应用程序代码 ：
 
-* all app source code lives inside the `<root>/src` folder
-* the entry point to the app is at `/src/index.js`
+- 1.一个放置在项目根目录中，并且在配置中使用 "presets": ["es2015"]
+- 2.另一个放置在应用程序代码的源代码目录中
 
-T> Please review the [webpack-dev-server options](/configuration/dev-server) and the [concept pages](/concepts) to familiarize yourself with the concepts below
+W> demo呢？
+
+### webpack 配置
+
+对于这个例子， 我们将使用一个 webpack 配置文件， 并假设：
+
+- 所有应用程序源代码都位于 `<root>/src` 文件夹中
+- 应用程序的入口起点位于 `/src/index.js`
+
+目录结构
+
+- --root
+- --root/src
+- --root/src/index.js
+
+T> 请查看 [webpack-dev-server](/configuration/dev-server) 和 [概念](/concepts) 以熟悉下面的概念
 
 __webpack.config.js__
 
@@ -96,43 +111,39 @@ const webpack = require('webpack');
 
 module.exports = {
   context: resolve(__dirname, 'src'),
-
+  // webpack 解析模块的上下文目录
   entry: [
     'react-hot-loader/patch',
-    // activate HMR for React
-
+    // 开起React的HRM
     'webpack-dev-server/client?http://localhost:8080',
     // bundle the client for webpack-dev-server
     // and connect to the provided endpoint
-
     'webpack/hot/only-dev-server',
     // bundle the client for hot reloading
+    // only： 只有更新成功时在执行热重载
     // only- means to only hot reload for successful updates
-
     './index.js'
-    // the entry point of our app
+    // 程序入口
   ],
   output: {
     filename: 'bundle.js',
-    // the output bundle
-
+    // 输出文件名
     path: resolve(__dirname, 'dist'),
-
+    // 输出位置
     publicPath: '/'
+    // 必须指定，HMR才之道在哪里加载更新的模块
     // necessary for HMR to know where to load the hot update chunks
   },
 
   devtool: 'inline-source-map',
-
+  // source-map
   devServer: {
     hot: true,
-    // enable HMR on the server
-
+    // 开起HMR服务
     contentBase: resolve(__dirname, 'dist'),
     // match the output path
-
     publicPath: '/'
-    // match the output `publicPath`
+    // 发布目录
   },
 
   module: {
@@ -151,9 +162,9 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    // enable HMR globally
-
+    // 全局开起HMR
     new webpack.NamedModulesPlugin(),
+    // HMR更新时在浏览器的console中显式可读性较好的模块名称
     // prints more readable module names in the browser console on HMR updates
   ],
 };

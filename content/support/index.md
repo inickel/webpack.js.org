@@ -1,5 +1,5 @@
 ---
-title: Why Support webpack?
+title: 支持webpack?
 contributors:
   - scottdj92
   - harrynewsome
@@ -59,7 +59,7 @@ You can encourage your developers to contribute to the ecosystem, open sourcing 
 
 We want you to work with us, one of the top NPM libraries, to improve your product!
 
-<!-- 
+<!--
 ### Sales Pitch
-(add slides here) 
+(add slides here)
 -->

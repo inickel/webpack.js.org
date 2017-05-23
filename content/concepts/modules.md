@@ -7,7 +7,7 @@ contributors:
   - rouzbeh84
 ---
 
-In [modular programming](https://en.wikipedia.org/wiki/Modular_programming), developers break programs up into discrete chunks of functionality called a _module_.
+In [模块化编程](https://en.wikipedia.org/wiki/Modular_programming), developers break programs up into discrete chunks of functionality called a _module_.
 
 Each module has a smaller surface area than a full program, making verification, debugging, and testing trivial.
 Well-written _modules_ provide solid abstractions and encapsulation boundaries, so that each module has a coherent design and a clear purpose within the overall application.
@@ -17,7 +17,9 @@ On the web, however, support for _modules_ has been slow to arrive.
 Multiple tools exist that support modular JavaScript on the web, with a variety of benefits and limitations.
 webpack builds on lessons learned from these systems and applies the concept of _modules_ to any file in your project.
 
-## What is a webpack Module
+## webpack 模块
+
+What is a webpack Module
 
 In contrast to [Node.js modules](https://nodejs.org/api/modules.html), webpack _modules_ can express their _dependencies_ in a variety of ways. A few examples are:
 
@@ -29,7 +31,9 @@ In contrast to [Node.js modules](https://nodejs.org/api/modules.html), webpack _
 
 T> webpack 1 requires a specific loader to convert ES2015 `import`, however this is possible out of the box via webpack 2
 
-## Supported Module Types
+## 支持类型
+
+Supported Module Types
 
 webpack supports modules written in a variety of languages and preprocessors, via _loaders_. _Loaders_ describe to webpack **how** to process non-JavaScript _modules_ and include these _dependencies_ into your _bundles_.
 The webpack community has built _loaders_ for a wide variety of popular languages and language processors, including:
@@ -43,4 +47,4 @@ The webpack community has built _loaders_ for a wide variety of popular language
 
 And many others! Overall, webpack provides a powerful and rich API for customization that allows one to use webpack for **any stack**, while staying **non-opinionated** about your development, testing, and production workflows.
 
-For a full list, see [**the list of loaders**](/loaders) or [**write your own**](/api/loaders).
+For a full list, see [**加载器列表**](/loaders) or [**自定义加载器**](/api/loaders).

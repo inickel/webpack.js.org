@@ -14,7 +14,7 @@ export default ({
       { page.repo ? (
         <span>
           <a className="page-links__link" href={ page.repo }>
-            Jump to Repository
+            源码
           </a>
 
           <span className="page-links__gap">|</span>
@@ -22,7 +22,7 @@ export default ({
       ) : null }
 
       <a className="page-links__link" href={ editLink }>
-        Edit Document
+        编辑
         <i className="page-links__icon icon-edit" />
       </a>
     </div>

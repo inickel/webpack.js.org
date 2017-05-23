@@ -1,5 +1,5 @@
 ---
-title: Caching
+title: 缓存
 sort: 41
 contributors:
   - okonet

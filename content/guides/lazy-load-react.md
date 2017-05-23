@@ -1,5 +1,5 @@
 ---
-title: Lazy Loading - React
+title: 延迟加载 - React
 contributors:
   - iammerrick
   - chrisVillanueva

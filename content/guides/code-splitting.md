@@ -1,5 +1,5 @@
 ---
-title: Code Splitting
+title: 代码分离
 sort: 30
 contributors:
   - pksjce
@@ -7,31 +7,32 @@ contributors:
   - simon04
 ---
 
-Code splitting is one of the most compelling features of webpack. It allows you to split your code into various bundles which you can then load on demand — like when a user navigates to a matching route, or on an event from the user. This allows for smaller bundles, and allows you to control resource load prioritization, which if used correctly, can have a major impact on your application load time.
+`webpack` 中的 代码分离 是最引人注目的特性之一。 你可以把你的代码分离到不同的 `bundle` 中， 然后你就可以去按需加载这些文件。例如， 当用户跳转到匹配的路由，或用户触发了事件时，加载对应文件。 如果使用了正确的使用方式，这可以使我们有更小的 `bundle` ，同时可以控制资源加载优先级，从而优化应用程序的加载事件等。
 
-There are mainly two kinds of code splitting that can be accomplished with webpack:
+总的来说，使用 `webpack` 的代码分离 主要有两种：
 
-## Resource splitting for caching and parallel loads
+## 分离资源
 
-### Vendor code splitting
+### 分离第三方库
 
-A typical application can depend on many third party libraries for framework/functionality needs. Unlike application code, code present in these libraries does not change often.
+典型的应用程序中，通常会依赖许多第三方的框架或者函数库。不同于应用程序代码，而这些第三方库代码不会频繁修改。因此，无论业务代码如何变更，但第三方 `vendor` 的 `[hash]` 值通常是保持不变的.
 
-If we keep code from these libraries in its own bundle, separate from the application code, we can leverage the browser's caching mechanism to cache these files for longer durations on the end user's machine.
+如果我们将这些第三方库中的代码，打包在独立于应用程序代码的 `bundle` 中，就可以利用浏览器缓存机制，把这些文件长时间地缓存在用户端，以减少消耗网络请求。
 
-For this to work, the `[hash]` portion in the vendor filename must remain constant, regardless of application code changes. Learn [how to split vendor/library](/guides/code-splitting-libraries) code using the `CommonsChunkPlugin`.
+查阅如何使用 `CommonsChunkPlugin` 来[分离第三方库](/guides/code-splitting-libraries) .
 
-### CSS splitting
+### 分离CSS
 
-You might also want to split your styles into a separate bundle, independent from application logic.
-This enhances cacheability of your styles and allows the browser to load the styles in-parallel with your application code, thus preventing a FOUC ([flash of unstyled content](https://en.wikipedia.org/wiki/Flash_of_unstyled_content)).
+你也可能需要将你的css代码分离到单独的 `bundle` 中，与应用程序的逻辑分离。 使得css文件可独立，浏览器才能能够并行加载css文件，以避免[闪屏问题](https://en.wikipedia.org/wiki/Flash_of_unstyled_content)。
 
-Learn [how to split CSS](/guides/code-splitting-css) using the `ExtractTextWebpackPlugin`.
+查阅如何使用 `ExtractTextWebpackPlugin` [分离css](/guides/code-splitting-css)
 
-## On demand code-splitting
+## 按需分离
 
-While resource splitting of the previous kind requires the user to specify the split points upfront in the configuration, one can also create dynamic split points in the application code.
+前面提到的几种分离策略，开发者都需要预先在配置中指定分离的模块，在 `webpack` 中，也可以在应用程序代码中创建动态分离模块。
 
-This can be used for more granular chunking of code, for example, per our application routes or as per predicted user behaviour. This allows the user to load non-essential assets on demand.
+这可以用于更细粒度的代码块；例如，根据我们的应用程序路由，或根据用户行为预测。这可以使用户按照实际需要加载非必要资源。
 
-Learn [how to split on demand](/guides/code-splitting-async) using `import()` or `require.ensure()`.
+查阅如何使用 `import()` 或 `require.ensure()` 执行[按需分离](/guides/code-splitting-async)
+
+>T 有点啰嗦，其实无非是前端性能优化的几个点，具体参见雅虎军规

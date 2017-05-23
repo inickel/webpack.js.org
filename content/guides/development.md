@@ -1,5 +1,5 @@
 ---
-title: Development
+title: 开发
 sort: 50
 contributors:
   - SpaceK33z
@@ -9,23 +9,26 @@ contributors:
 
 On this page we'll explain how to get started with developing and how to choose one of three tools to develop. It is assumed you already have a webpack configuration file.
 
-W> Never use any of these tools in production. Ever.
+W> 切忌在生产环境中使用！
 
 
-## Adjusting Your Text Editor
+## 修改IDE
+
+Adjusting Your Text Editor
 
 Some text editors have a "safe write" feature and enable this by default. As a result, saving a file will not always result in a recompile.
 
 Each editor has a different way of disabling this. For the most common ones:
 
-* **Sublime Text 3** - Add `"atomic_save": false` to your user preferences.
-* **IntelliJ** - use search in the preferences to find "safe write" and disable it.
-* **Vim** - add `:set backupcopy=yes` in your settings.
-* **WebStorm** - uncheck `Use "safe write"` in Preferences > Appearance & Behavior > System Settings
+* **Sublime Text 3** - 用户配置里面添加 `"atomic_save": false` 字段。
+* **IntelliJ** - 用户配置里面禁用 "safe write"。
+* **Vim** - 设置里面添加 `:set backupcopy=yes`。
+* **WebStorm** - 在 Preferences > Appearance & Behavior > System Settings 取消勾选 `Use "safe write"`  
 
 
 ## Source Maps
 
+当JavaScript发生异常时，通常我们都需要知道错误是哪个文件的哪一行曝出的，
 When a JavaScript exception occurs, you'll often want to know what file and line is generating this error. Since webpack outputs files into one or more bundles, it can be inconvenient to trace the file.
 
 **Source maps** intend to fix this problem. There are a lot of [different options](/configuration/devtool) - each with their own advantages and disadvantages. To get started, we'll use this one:
@@ -35,7 +38,7 @@ devtool: "cheap-eval-source-map"
 ```
 
 
-## Choosing a Tool
+## 选取工具
 
 webpack can be used with **watch mode**. In this mode webpack will watch your files, and recompile when they change.
 **webpack-dev-server** provides an easy to use development server with fast live reloading. If you already have a development server and want full flexibility, **webpack-dev-middleware** can be used as middleware.
@@ -45,7 +48,7 @@ webpack-dev-server and webpack-dev-middleware use in-memory compilation, meaning
 In most cases **you'll want to use webpack-dev-server**, since it's the easiest to get started with and offers much functionality out-of-the-box.
 
 
-### webpack Watch Mode
+### 观察实时变更
 
 webpack's watch mode watches files for changes. If any change is detected, it'll run the compilation again.
 
@@ -78,7 +81,9 @@ You can then start the server by running `npm start` from within your project di
 T> You may find the `--single` option useful for serving single page apps.
 
 
-### Watch Mode with Chrome DevTools Workspaces
+### 配合Chrome DevTools Workspaces
+
+Watch Mode with Chrome DevTools Workspaces
 
 If you set up Chrome to [persist changes when saving from the _Sources_ panel](https://medium.com/@rafaelideleon/webpack-your-chrome-devtools-workspaces-cb9cca8d50da)
 so you don't have to refresh the page, you will have to setup webpack to use

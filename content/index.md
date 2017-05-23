@@ -61,11 +61,9 @@ module.exports = {
 </html>
 ```
 
-执行 `webpack` 命令将会自动生成 `bundle.js` 文件
+执行 `webpack` 命令，将会自动生成 `bundle.js` 文件
 
 </div>
 </div>
 
-## It's that simple
-
-## [开始使用](/guides/get-started)
+## [入门](/guides/get-started)

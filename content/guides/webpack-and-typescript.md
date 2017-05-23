@@ -1,5 +1,5 @@
 ---
-title: webpack & Typescript
+title: Typescript
 contributors:
   - morsdyce
 ---
@@ -7,7 +7,7 @@ contributors:
 [TypeScript](https://www.typescriptlang.org) is a typed superset of JavaScript that compiles to plain JavaScript, in this guide we will learn how to integrate Typescript with webpack.
 
 
-## Basic Setup
+## 设置
 
 In order to get started with webpack and Typescript, first we must install webpack in our project.
 If you didn't do so already please check out [webpack installation guide](/guides/installation/).
@@ -71,7 +71,7 @@ module.exports = {
 Here we specify our entry point to be __index.ts__ in our current directory, an output file called __bundle.js__ and our TypeScript loader that is in charge of compiling our TypeScript file to JavaScript. We also add `resolve.extensions` to instruct webpack what file extensions to use when resolving Typescript modules.
 
 
-## Typescript loaders
+## Typescript 加载器
 
 Currently there are 2 loaders for TypeScript available:
 
@@ -86,7 +86,7 @@ You can read more about it [here](https://github.com/s-panferov/awesome-typescri
 In this guide we will be using `ts-loader` as currently it is easier enabling additional webpack features such as importing non code assets into your project.
 
 
-## Enabling source maps
+## 启用 sourcemaps
 
 In order to enable source maps we first must configure TypeScript to output inline source maps to our compiled JavaScript files.
 This is done by setting the sourceMap property to true.
@@ -146,7 +146,7 @@ Finally we need to enable source maps in webpack by specifying the `devtool` pro
 Currently we use the 'inline-source-map' setting, to read more about this setting and see other options check out the [devtool documentation](/configuration/devtool/).
 
 
-## Using 3rd Party Libraries
+## 使用第三方库
 
 When installing 3rd party libraries from npm, it is important to remember
 to install the typing definition for that library.
@@ -162,7 +162,7 @@ npm install --save-dev @types/lodash
 For more information see [this blog post](https://blogs.msdn.microsoft.com/typescript/2016/06/15/the-future-of-declaration-files/)
 
 
-## Importing non code assets
+## 引用非代码资源
 
 To use non code assets with TypeScript, we need to tell TypeScript how to defer the type for these imports.
 

@@ -37,7 +37,7 @@ export default ({ section, page }) => (
       { page.related.length > 0 ? (
         <div>
           <hr />
-          <h3>Further Reading</h3>
+          <h3>补充</h3>
           <ul>
             {
               page.related.map((link, index) => (
@@ -55,7 +55,7 @@ export default ({ section, page }) => (
       { page.contributors.length > 0 ? (
         <div>
           <hr />
-          <h3>Contributors</h3>
+          <h3>贡献者</h3>
           <Contributors contributors={ page.contributors } />
         </div>
       ) : null }

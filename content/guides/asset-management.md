@@ -1,18 +1,26 @@
 ---
-title: Asset Management
+title: 静态资源管理
 contributors:
   - skipjack
   - michael-ciniawsky
 ---
 
+你可能已经掌握来用 `webpack` 来打包和管理你的JavaScript模块，使用[`HTMLWebpackPlugin`](/plugins/html-webpack-plugin) 来生成html文件，并使用[css-loader](/loaders/css-loader)在 JavaScript 中加载 css 文件； 但在项目中，你可能还需要处理其他比如图片，字体，和数据等静态资源。
+
 So you're all set up with webpack -- transforming and linting your JavaScript modules, generating an html file with the [`HTMLWebpackPlugin`](/plugins/html-webpack-plugin), and even loading some css through your JavaScript modules with the [css-loader](/loaders/css-loader). But wait, your site requires a whole bunch of other assets like images (e.g. `.png`, `.jpg`, `.svg`), fonts (e.g. `.woff`, `.woff2`, `.eot`), and data (e.g. `.json`, `.xml`, `.csv`)!
 
-Prior to webpack, front-end developers would use tools like grunt and gulp to process these "web assets" and move them from their `/src` folder into their `/dist` or `/build` directory. The same idea was used for JavaScript modules, but, as you likely already know, tools like webpack will now "enter" your application and __dynamically bundle__ all dependencies (creating what's known as a [dependency graph](/concepts/dependency-graph)). This is great because every module now _explicitly states its dependencies_ and we'll avoid bundling modules that aren't in use.
+在 webpack 出现之前，前端开发人员会使用 grunt 和 gulp 等工具来处理这些 "web 资源"，并将它们从 /src 文件夹移动到 /dist 或 /build 目录中。同样方式也被用于 JavaScript 模块，但是，您可能已经知道，像 webpack 这样的工具现在将从"入口(enter)"开始，访问你的应用程序，并动态打包(dynamically bundle)所有依赖项（创建所谓的依赖图表(dependency graph)）。这是极好的创举，因为现在每个模块都可以_明确表述它自身的依赖，我们将避免打包未使用的模块。
+
+
+在webpack之前，前端开发者选择性使用像grunt，gulp等工具来处理静态资源：将他们从 源码目录迁移至输出目录；
+Prior to webpack, front-end developers would use tools like grunt and gulp to process these "web assets" and move them from their `/src` folder into their `/dist` or `/build` directory. The same idea was used for JavaScript modules, but, as you likely already know, tools like webpack will now "enter" your application and __dynamically bundle__ all dependencies (creating what's known as a [依赖关系图谱](/concepts/dependency-graph)). This is great because every module now _explicitly states its dependencies_ and we'll avoid bundling modules that aren't in use.
 
 One of the coolest webpack features is that you can also _include any other type of file_, besides JavaScript, for which there is a loader. This means that the same benefits listed above for JavaScript (e.g. explicit dependencies) can be applied to everything used in building a website or web app. Let's start with CSS, as you may already be familiar with that setup...
 
 
-## Loading CSS
+## 加载CSS
+
+在JavaScript模块中载入CSS，必须先安装[style-loader](/loaders/style-loader) 和[css-loader](/loaders/css-loader) ， 并在[配置文件](/configuration/module)中添加配置。
 
 In order to `import` a CSS file from within a JavaScript module, you simply need to install and add the [style-loader](/loaders/style-loader) and [css-loader](/loaders/css-loader) to your [`module` configuration](/configuration/module)...
 
@@ -45,7 +53,7 @@ This enables you to `import './style.css'` into the file that depends on that st
 T> Note that you can also [split your CSS](/guides/code-splitting-css) for better load times in production. On top of that, loaders exist for pretty much any flavor of CSS you can think of -- [postcss](/loaders/postcss-loader), [sass](/loaders/sass-loader), and [less](/loaders/less-loader) to name a few.
 
 
-## Loading Images
+## 加载图片
 
 So now we're pulling in our CSS, but what about our backgrounds and icons? Using the [file-loader](/loaders/file-loader) we can easily incorporate those in our system as well:
 
@@ -77,7 +85,7 @@ Now, when you `import Image from './my-image.png'`, that image will be processed
 T> The next step is minifying and optimizing your images. Check out the [image-webpack-loader](https://github.com/tcoopman/image-webpack-loader) and [url-loader](/loaders/url-loader) for more on how you can enhance your image loading process.
 
 
-## Loading Fonts
+## 加载字体
 
 So what about other assets like fonts? The file and url loaders will take any file you load through them and output it to your build directory. This means we can use them for any kind of file, including fonts:
 
@@ -115,7 +123,7 @@ With this in place you can define a font like so...
 and the relative paths (e.g. `'./font.woff2'`) will be replaced with the final path/filename in your build directory.
 
 
-## Loading Data
+## 加载数据
 
 Another useful asset that can be loaded is data, like JSON files, CSVs, TSVs, and XML. Support for JSON is actually built-in, similar to NodeJS, meaning `import Data from './data.json'` will work by default. To import CSVs, TSVs, and XML you could use the [csv-loader](https://github.com/theplatapi/csv-loader) and [xml-loader](https://github.com/gisikw/xml-loader). Let's handle loading all three:
 
@@ -157,7 +165,7 @@ Data.forEach((row, index) => {
 T> This can be especially helpful when implementing some sort of data visualization using a tool like [d3](https://github.com/d3). Instead of making an ajax request and parsing the data at runtime you can load it into your module during the build process so that the parsed data is ready to go as soon as the module hits the browser.
 
 
-## Global Assets
+## 全局静态资源
 
 The coolest part of everything mentioned above, is that loading assets this way allows you to group modules and assets together in a more intuitive way. Instead of relying on a global `/assets` directory that contains everything, you can group assets with the code that uses them:
 
@@ -176,6 +184,6 @@ This setup makes your code a lot more portable as everything that is closely cou
 However, let's say you're locked into your old ways or you have some assets that are shared between multiple components (views, templates, modules, etc.). It's still possible to store these assets in a base directory and even use [aliasing](/configuration/resolve#resolve-alias) to make them easier to `import`.
 
 
-## Further Reading
+## 相关阅读
 
-- [Loading Fonts](https://survivejs.com/webpack/loading/fonts/) on SurviveJS
+- [加载字体文件](https://survivejs.com/webpack/loading/fonts/)

@@ -1,5 +1,5 @@
 ---
-title: Building for Production
+title: 生产环境打包
 sort: 40
 contributors:
   - henriquea
@@ -14,19 +14,22 @@ contributors:
   - skipjack
 ---
 
+本文主要介绍如何打包生产环境的代码。
+
 The following article describes the best practices and tools to use when using webpack to build a production version of a site or application.
 
 
-## The Automatic Way
+## 自动打包
 
-Running `webpack -p` (or equivalently `webpack --optimize-minimize --define process.env.NODE_ENV="'production'"`). This performs the following steps:
+执行 `webpack -p` 命令(等同于 `webpack --optimize-minimize --define process.env.NODE_ENV="'production'"`). 过程将会按一下步骤执行:
 
-- Minification using `UglifyJsPlugin`
-- Runs the `LoaderOptionsPlugin` (see its [documentation](/plugins/loader-options-plugin))
-- Sets the NodeJS environment variable triggering certain packages to compile differently
+- 使用 `UglifyJsPlugin` 插件压缩代码
+- 执行 `LoaderOptionsPlugin` 加载器 ([加载器配置](/plugins/loader-options-plugin))
+- 设置NodeJS的环境变量
+Sets the NodeJS environment variable triggering certain packages to compile differently
 
 
-### Minification
+### 代码压缩
 
 webpack comes with `UglifyJsPlugin`, which runs [UglifyJS](http://lisperator.net/uglifyjs/) in order to minimize the output. The plugin supports all of the [UglifyJS options](https://github.com/mishoo/UglifyJS2#usage). Specifying `--optimize-minimize` on the command line, the following plugin configuration is added:
 
@@ -54,7 +57,7 @@ We encourage you to have source maps enabled in production, as they are useful f
 In your configuration, use the `devtool` object to set the Source Map type. We currently support seven types of source maps. You can find more information about them in our [configuration](/configuration/devtool) documentation page (`cheap-module-source-map` is one of the simpler options, using a single mapping per line).
 
 
-### Node Environment Variable
+### Node环境变量
 
 Running `webpack -p` (or `--define process.env.NODE_ENV="'production'"`) invokes the [`DefinePlugin`](/plugins/define-plugin) in the following way:
 
@@ -77,7 +80,7 @@ The `DefinePlugin` performs search-and-replace operations on the original source
 T> Technically, `NODE_ENV` is a system environment variable that Node.js exposes into running scripts. It is used by convention to determine development-vs-production behavior by server tools, build scripts, and client-side libraries. Contrary to expectations, `process.env.NODE_ENV` is not set to `"production"` __within__ the build script `webpack.config.js`, see [#2537](https://github.com/webpack/webpack/issues/2537). Thus, conditionals like `process.env.NODE_ENV === 'production' ? '[name].[hash].bundle.js' : '[name].bundle.js'` do not work as expected. See how to use [environment variables](/guides/environment-variables).
 
 
-## The Manual Way
+## 手动大包
 
 When we do have multiple configurations in mind for different environments, the easiest approach is to write separate webpack configurations for each environment.
 

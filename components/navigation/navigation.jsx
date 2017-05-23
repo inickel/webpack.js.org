@@ -9,15 +9,15 @@ import ChineseFlag from '../../assets/language/chinese.png';
 // TODO: Maybe by updating the routing scheme later on we can avoid hardcoding this?
 let Sections = [
   {
-    title: 'Concepts',
+    title: '概念',
     url: 'concepts'
   },
   {
-    title: 'Guides',
+    title: '教程',
     url: 'guides'
   },
   {
-    title: 'Documentation',
+    title: '文档',
     url: 'configuration',
     children: [
       { title: 'CLI', url: 'api/cli' },
@@ -29,15 +29,15 @@ let Sections = [
     ]
   },
   {
-    title: 'Donate',
+    title: '捐赠',
     url: '//opencollective.com/webpack'
   },
   {
-    title: 'Blog',
+    title: '博客',
     url: '//medium.com/webpack'
   },
   {
-    title: 'Support',
+    title: '支持',
     url: 'support'
   }
 ];
@@ -108,7 +108,7 @@ export default class Navigation extends React.Component {
             className="navigation__languages"
             items={[
               { title: 'English', url: 'https://webpack.js.org/', image: USFlag },
-              { title: 'Chinese', url: 'https://doc.webpack-china.org/', image: ChineseFlag }
+              { title: '简体中文', url: '/', image: ChineseFlag }
             ]} />
         </Container>
 

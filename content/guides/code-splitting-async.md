@@ -1,5 +1,5 @@
 ---
-title: Code Splitting - Async
+title: 代码分离 - 异步
 sort: 33
 contributors:
   - simon04
@@ -8,16 +8,21 @@ contributors:
   - rahulcs
   - johnstew
 related:
-  - title: Lazy Loading ES2015 Modules in the Browser
+  - title: 延迟加载ES2015模块
     url: https://dzone.com/articles/lazy-loading-es2015-modules-in-the-browser
 ---
 
+此文档介绍如何延迟加载模块，
+
 This guide documents how to split your bundle into chunks which can be downloaded asynchronously at a later time. For instance, this allows to serve a minimal bootstrap bundle first and to asynchronously additional features later.
+
+`webpack` 提供两种方式来处理延迟加载：`import()` 和 `require.ensure()` ; 在v2.x版本，官方推荐使用 `import()`。
 
 webpack supports two similar techniques to achieve this goal: using `import()` (preferred, ECMAScript proposal) and `require.ensure()` (legacy, webpack specific).
 
 
-## Dynamic import: `import()`
+## 动态引入
+
 
 Currently, a "function-like" `import()` module loading [syntax proposal](https://github.com/tc39/proposal-dynamic-import) is on the way into ECMAScript.
 

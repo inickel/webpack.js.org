@@ -1,5 +1,5 @@
 ---
-title: Hot Module Replacement
+title: 热替换
 sort: 11
 contributors:
 - SpaceK33z

@@ -1,5 +1,5 @@
 ---
-title: 开始
+title: 入门
 sort: 0
 contributors:
   - bebraw
@@ -12,13 +12,11 @@ contributors:
   - jecoopr
 ---
 
-首先，webpack 是一个用来构建应用程序（通常是web）的构建工具，在[安装](/guides/installation)完 `webpack` 后，分别可以用 [cli](/api/cli) 或 [api](/api/node) 来使用 `webpack` 。 `webpack` 通过快速建立应用程序的依赖关系并以正确的顺序打包它们来简化你的工作流。 你还能够针对具体情况来对 `webpack` 进行自定义的优化配置，比如为生产环境拆分 vendor/css/js 代码，运行一个开发服务, 来实现无刷新热重载(hot-reload)等很多酷(zhuang)炫(bi)的特性。了解更多请阅读 [为什么要使用webpack](/guides/why-webpack)
+首先，`webpack` 是一个用来构建应用程序（通常是web）的构建工具，在[安装向导](/guides/installation)完 `webpack` 后，分别可以用 [cli](/api/cli) 或 [api](/api/node) 来使用 `webpack` 。 `webpack` 通过快速建立应用程序的依赖关系并以正确的顺序打包它们来简化你的工作流。 你还能够针对具体情况来对 `webpack` 进行自定义的优化配置，比如为生产环境拆分 vendor/css/js 代码，运行一个开发服务, 来实现无刷新热重载(hot-reload)等很多酷(zhuang)炫(bi)的特性。了解更多请阅读 [为什么要使用webpack](/guides/why-webpack)
 
-## 创建一个bundle
+## 创建demo
 
-先创建一个示demo目录来 使用 `wepback` 。并 [安装 webpack](/guides/installation) 到本地环境。
-
-Create a demo directory to try out webpack. [Install webpack](/guides/installation).
+先创建一个示demo目录来 使用 `wepback` 。并[安装](/guides/installation)  `webpack` 到本地环境。
 
 ```bash
 mkdir webpack-demo && cd webpack-demo
@@ -27,9 +25,9 @@ npm install --save-dev webpack
 ```
 
 ```bash
-./node_modules/.bin/webpack --help # Shows a list of valid cli commands
-.\node_modules\.bin\webpack --help # For windows users
-webpack --help # If you installed webpack globally
+./node_modules/.bin/webpack --help # cli 帮助列表
+.\node_modules\.bin\webpack --help # windows 用户请使用此命令
+webpack --help # 如果你安装在全局，则此命令也可以获得帮助列表
 ```
 
 再创建一个子目录 `app` 并在其下创建一个 `index.js` 文件。
@@ -98,6 +96,7 @@ __app/index.js__
 function component () {
   ...
 ```
+
 然后修改 `index.html` 的代码，引用打包后的js文件
 
 ```diff
@@ -133,24 +132,19 @@ bundle.js  544 kB       0  [emitted]  [big]  main
    [3] ./app/index.js 278 bytes {0} [built]
 ```
 
-T> 输出结果可能会稍有不同。但只要构建成功，那么你就可以继续。
-
-T> Output may vary. If the build is successful then you are good to go.
+T> 输出结果可能会稍有不同。
 
 在浏览器中打开 `index.html`，查看构建成功后的 `bundle` 的结果。你能看到带有以下文本的页面：'Hello webpack'。
 
-## 在 webpack 中使用 ES2015 模块
+## 使用 ES2015 模块
 
-你肯能已经注意到了，在 `app/index.js` 中使用的 [ES2015 module import](https://developer.mozilla.org//en-US/docs/Web/JavaScript/Reference/Statements/import) (alias ES2015, *harmony*)  尽管 `import/export` 等关键字在浏览器中还未被支持，你也可以正常的使用，因为 `webpack` 会将其替换为 ES5 兼容的代码。你可以检查 `dist/bundle.js` 的代码确实是已经转译成ES5的代码。
-
-注意，webpack 不会更改你的代码中除 import/export 以外的部分。如果你在使用其它 ES2015 特性，请确保你使用了一个像是 Babel 或 Bublé 的转译器。
-Noticed the use of [ES2015 module import](https://developer.mozilla.org//en-US/docs/Web/JavaScript/Reference/Statements/import) (alias ES2015, *harmony*) in `app/index.js`? Although `import`/`export` statements are not supported in browsers (yet), using them is fine since webpack will replace those instructions with an ES5 compatible wrapper code. Inspect `dist/bundle.js` to convince yourself.
+你肯能已经注意到了，在 `app/index.js` 中使用的 [ES2015 module import](https://developer.mozilla.org//en-US/docs/Web/JavaScript/Reference/Statements/import) (alias ES2015, *harmony*)  尽管 `import/export` 等关键字在浏览器中还未被支持，你也可以正常的使用，因为 `webpack` 会将其替换为 ES5 兼容的代码。你可以查看 `dist/bundle.js` 的代码。
 
 注意， `webpack` 不会更改你的代码中除 `import/export` 以外的部分。 如果你需要使用[ES2015的特性](http://es6-features.org/)，你可能需要查阅一下信息来确保代码能在浏览器上正常运行 [Babel](https://babeljs.io/) 或 [Bublé](https://buble.surge.sh/guide/) 的转译器。
 
-## webpack的配置
+## 配置文件
 
-在实际项目中，很显然，在命令行直接赋予 CLI 命令参数的方式并不能满足我们的业务需求， 因此对于更复杂的配置，我们可以创建一个配置文件： `webpack.config.js`，`webpack` 根据配置信息来打包代码。创建一个配置文件后，你可以使用如下的配置设置来达到上述 CLI 命令的同样效果。
+在实际项目中，在命令行直接赋予 `CLI` 命令参数的方式并不能满足我们的业务需求， 因此对于更复杂的配置，可以创建一个配置文件： `webpack.config.js`，`webpack` 根据配置信息来打包代码。创建一个配置文件后，你可以使用如下的配置设置来达到上述 `CLI` 命令的同样效果。
 
 __webpack.config.js__
 
@@ -186,11 +180,11 @@ T> 如果在当前的执行目录下有 `webpack.config.js` 文件，`webpack` �
 
 T> 如果在上面 “创建一个bundle” 章节，已经成功创建过 `dist/bundle.js` 文件，可以删除 dist 子目录来验证通过 `webpack.config.js` 的设置所输出的内容是否符合预期。
 
-通过使用配置文件的方式， webpack 更加灵活。可以向配置文件中添加 loader 、plugins、 resolve 等选项进行打包。
+通过使用配置文件的方式， `webpack` 更加灵活。可以向配置文件中添加 `loader` 、`plugins`、 `resolve` 等选项进行打包。
 
-通过配置文件可以最灵活地使用 webpack。我们可以通过向配置文件添加 loader 规则(loader rules)、插件(plugins)、解析选项(resolve options)以及许多其他增强功能，来进行打包。
+通过配置文件可以最灵活地使用 `webpack` 。我们可以通过向配置文件添加 `loader` 规则(loader rules)、插件(plugins)、解析选项(resolve options)以及许多其他增强功能，来进行打包。
 
-## 配合 npm 使用
+## npm命令
 
 在命令行中直接调用webpack并不是很方便，其实有种更快捷的方式：
 
@@ -210,13 +204,7 @@ T> 如果在上面 “创建一个bundle” 章节，已经成功创建过 `dist
 
 T>  你可以通过向 `npm run build` 命令添加两个中横线， 给 `webpack` 传递自定义参数，例如：`npm run build -- --colors`。
 
-You can now achieve the same as above by using `npm run build` command. npm picks up the scripts through it and patches the environment temporarily so that it contains the bin commands. You will see this convention in a lot of projects out there.
-
-T> You can pass custom parameters to webpack by adding two dashes to the `npm run build` command, e.g. `npm run build -- --colors`.
-
 
 ## 小结
 
-现在你已经学习完基本的构建过程，你可以深入 `webpack`  [基本概念](/concepts) 和 [配置信息](/configuration) 来更好地理解其设计。也可以查看 [指南](/guides) 来学习如何处理常见问题。[API](/api) 章节则是对底层的功能进行深入。
-
-Now that you have a basic build together, you should dig into the [basic concepts](/concepts) and [configuration](/configuration) of webpack to better understand its design. Also check out the [guides](/guides) to learn how to approach common problems. The [API](/api) section digs into the lower level features.
+现在你已经学习完基本的构建过程，你可以深入 `webpack`  [概念](/concepts) 和 [配置](/configuration) 来更好地理解其设计。也可以查看 [指南](/guides) 来学习如何处理常见问题。[API](/api) 章节则是对底层的功能进行深入。

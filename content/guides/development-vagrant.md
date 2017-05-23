@@ -99,6 +99,6 @@ webpack-dev-server --public 10.10.10.61 --watch-poll
 
 This makes the server only accessible on `127.0.0.1`, which is fine, because nginx takes care of making it available on your host PC.
 
-## Conclusion
+## 小结
 
 We made the Vagrant box accessible from a static IP, and then made webpack-dev-server publicly accessible so it is reachable from a browser. We then tackled a common problem that VirtualBox doesn't send out filesystem events, causing the server to not reload on file changes.
